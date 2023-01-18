@@ -9,9 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@metamask/detect-provider": "^2.0.0",
     "@next/font": "13.1.2",
+    "@nextui-org/react": "*",
+    "aos": "^2.3.4",
+    "axios": "^1.2.3",
+    "ethers": "^5.7.2",
     "next": "13.1.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "sf-font": "^1.0.0",
+    "simple-crypto-js": "^3.0.1",
+    "web3": "^1.7.4",
+    "web3modal": "^1.9.11"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26"
   }
 }
