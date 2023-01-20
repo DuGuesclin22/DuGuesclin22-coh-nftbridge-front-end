@@ -17,7 +17,6 @@ import Web3Modal from 'web3modal'
 import Web3 from 'web3'
 import axios from 'axios';
 import Sourcebridge from './engine/interfaces/sourcebridge';
-import Circles from './engine/circles';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { createTheme, NextUIProvider } from "@nextui-org/react";
 
@@ -132,7 +131,7 @@ export default function Home() {
               <img src="ethereumlogo.png" width={"220px"} style={{marginTop:'3px'}} />
             </Col>
             <Col css={{marginTop:'$12', paddingLeft:'$12'}}>
-            <div style={{marginTop:'5px'}} id="arrowAnim">
+            {/* <div style={{marginTop:'5px'}} id="arrowAnim">
               <div className="arrowSliding">
                 <div className="arrow"></div>
               </div>
@@ -145,7 +144,7 @@ export default function Home() {
               <div className="arrowSliding delay3">
                 <div className="arrow"></div>
               </div>
-            </div>
+            </div> */}
             </Col>
           </Row>
         </div>
@@ -404,7 +403,6 @@ async function initTransfer() {
 
   return (
     <div>
-      <Circles />
       <Container sm="true">
         <Grid>
           <Text
