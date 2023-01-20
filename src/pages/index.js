@@ -192,16 +192,16 @@ export default function Home() {
     var accounts = await web3.eth.getAccounts();
     account = accounts[0];
     document.getElementById('wallet-address').textContent = account;
-    var goe = "0x5";
-    var cant = "0x-----"
+    var goe = "5";      
+    var cant = "7700"   // check 
     const connected = await detectEthereumProvider();
-    if (connected.chainId == goe) {
+    if (connected.chainId == 5) {
       var sNft = goeNFT
       var sCustody = goeCustody
       var sRpc = goerpc
       var erc20 = goeErc20
     }
-    else if (connected.chainId == cant) {
+    else if (connected.chainId == 740) {
       var sNft = cantoNFT
       var sCustody = cantoCustody
       var sRpc = cantorpc
@@ -212,7 +212,7 @@ export default function Home() {
     const wallet = new ethers.Wallet(key, provider);
     const contract = new ethers.Contract(sNft, NftABI, wallet);
     const itemArray = [];
-    await contract.walletOfOwner(account).then((value => {
+    await contract.walletOfOwner(account).then((value => {   // later need to update
     value.forEach(async(id) => {
         let token = parseInt(id, 16)             
           const rawUri = contract.tokenURI(token)
@@ -288,7 +288,7 @@ async function initTransfer() {
   });
   await dNFTCont.ownerOf(tokenId).catch(async (error) => {
     if (error) {
-        const rawTxn = await dNFTCont.populateTransaction.bridgeMint(
+        const rawTxn = await dNFTCont.populateTransaction.bridgeMint(    // bridge minting from bridge owner
           bridgeWallet,
           tokenId);
         let signedTxn = await wallet.sendTransaction(rawTxn);
@@ -298,7 +298,7 @@ async function initTransfer() {
         await nftBridgeApprove.wait();
         console.log('Transferring NFT to Destination Bridge Custody');
         let gas = { gasLimit: 3000000 };
-        const retaindNFT = await ethNFTCustody.retainNew(tokenId, gas);
+        const retaindNFT = await ethNFTCustody.retainNew(tokenId, gas);     // 
         await retaindNFT.wait();
         console.log('NFT Successfully Transferred to Destination Custody!');
         var hash = signedTxn.hash;
@@ -353,23 +353,23 @@ async function initTransfer() {
   document.getElementById("displayconfirm1").innerHTML = status4
   await new Promise((r) => setTimeout(r, 4000));
   let status5 = "Please Execute NFT Transfer to Bridge."
-  if (customPay == true) {
-    const cost = await sNFTCustody.costCustom();
-    let options = { gasLimit: 3000000 };
-    document.getElementById("displayconfirm1").innerHTML = status5
-    const tx2 = await tokenContract.approve(sourceCustody, cost);
-    await tx2.wait();
-    console.log("Approval to Transfer TX Fee Payment Received!");
-    const tx3 = await sNFTCustody.retainNFTC(tokenId, options);
-    await tx3.wait();
-  }
-  else {
+  // if (customPay == true) {
+  //   const cost = await sNFTCustody?.costCustom();
+  //   let options = { gasLimit: 3000000 };
+  //   document.getElementById("displayconfirm1").innerHTML = status5
+  //   const tx2 = await tokenContract.approve(sourceCustody, cost);
+  //   await tx2.wait();
+  //   console.log("Approval to Transfer TX Fee Payment Received!");
+  //   const tx3 = await sNFTCustody.retainNFTC(tokenId, options);
+  //   await tx3.wait();
+  // }
+  
     const costNative = await sNFTCustody.costNative();
     let options = { gasLimit: 3000000, value: costNative };
     document.getElementById("displayconfirm1").innerHTML = status5
     const tx3 = await sNFTCustody.retainNFTN(tokenId, options);
     await tx3.wait();
-  }
+  
   let status6 = "NFT has been transferred to Bridge!!" 
   let status7 = "In Transit to destination..."
   document.getElementById("displayconfirm1").innerHTML = status6
@@ -415,13 +415,10 @@ async function initTransfer() {
               fontWeight: "200",
             }}
           >
-            The Canto asset bridge is meant to do one thing, provide a transport
-            mechanism to safely move Tokens and NFTs between participating
-            blockchains!
+            FrostBridge 
           </Text>
           <p style={{ fontSize: "20px", margin: "30px", fontWeight: "200" }}>
-            This is all under a single convenient dashboard. The transfer
-            process is effortless and affordable.
+            
           </p>
         </Grid>
         <Grid>
